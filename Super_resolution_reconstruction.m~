@@ -27,6 +27,7 @@ super_data=round(input_data*conversion/resolution_of_reconstructed_image);
 super_data_old = super_data;
 super_data=[super_data(:,1) super_data(:,2)];
 
+
 super_data=sortrows(super_data,1);
 
 super_data_arch=super_data;
