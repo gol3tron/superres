@@ -8,7 +8,7 @@ conversion=187.65766;
 
 % This parameter defines the desired resolution of the calculation in
 % nanometers, i.e. it is used to round coordinates of reconstructed image
-resolution_of_reconstructed_image=1;
+resolution_of_reconstructed_image=1; %5 %10
 
 % loads the variable "cat", which should represent concatenated particle
 % tracking output (is this correct?)
@@ -34,6 +34,8 @@ super_data=[super_data(:,1) super_data(:,2)];
 % the variable super_data such that only the data within the region of
 % interest remain. The variable super_data_arch represents the variable
 % super_data prior to this x,y cutting.
+% The ROI is defined by the following min_x,miny, and max_x,max_y
+% coordinates.
 super_data_arch=super_data;
 min_x=4505;
 max_x=6771;
@@ -60,7 +62,12 @@ index_min_y=find(super_data(:,2)==min_y);
 index_max_y=find(super_data(:,2)==max_y);
 super_data = super_data(index_min_y(end):index_max_y(1),:);
 
-image=zeros(max_x,max_y);
+% The variable image represents a blank matrix that will contain occurances
+% of fluorescence detection at the corresponding x,y coordinates. Every
+% time a coordinate is found within the ROI, the value of image at that
+% coordinate is incremented.
+image = zeros(max_x-min_x,max_y-min_y);
+%image=zeros(max_x,max_y); %Old
 
 keepingtrack=(max_y-min_y+1)*(max_x-min_x+1);
 for a=min_x:max_x
