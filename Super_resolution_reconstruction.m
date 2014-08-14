@@ -1,13 +1,13 @@
 %Script to take Super Resolution data and make a Reconstructed Image
 
-convertion=187.65766;  %conversion factor from pixels to nanometers in nanometers / pixel
+conversion=187.65766;  %conversion factor from pixels to nanometers in nanometers / pixel
 resolution_of_reconstructed_image=1; %set reconstruction resolution in nm
 
 
 load('cat.mat')
 %cat=MT;
 
-super_data=round(cat*convertion/resolution_of_reconstructed_image); %does conversion from pixels to chosen resolution
+super_data=round(cat*conversion/resolution_of_reconstructed_image); %does conversion from pixels to chosen resolution
 super_data=[super_data(:,1) super_data(:,2)];
 
 super_data=sortrows(super_data,1);
