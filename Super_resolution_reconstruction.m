@@ -27,27 +27,38 @@ super_data=round(input_data*conversion/resolution_of_reconstructed_image);
 super_data_old = super_data;
 super_data=[super_data(:,1) super_data(:,2)];
 
-super_data=sortrows(super_data,1);
-
+% The command sortrows is used to sort the x,y coordinates. In order to
+% speed up the counting loops, a region of interest (ROI) is chosen to limit the
+% number of steps necessary to process the data. In order to isolate this
+% window, x,y coordinates between a min and max are discriminated out of
+% the variable super_data such that only the data within the region of
+% interest remain. The variable super_data_arch represents the variable
+% super_data prior to this x,y cutting.
 super_data_arch=super_data;
-
-min_x=find(super_data(:,1)==4505);
-max_x=find(super_data(:,1)==6810);
-
-
-super_data = super_data(min_x(end):max_x(1),:);
-
-super_data=sortrows(super_data,2);
-
-min_y=find(super_data(:,2)==13439);
-max_y=find(super_data(:,2)==15500);
-
-super_data = super_data(min_y(end):max_y(1),:);
-
 min_x=4505;
 max_x=6771;
 min_y=13439;
 max_y=15500;
+
+% super_data is sorted WRT the x-coordinates in column 1. Doing so allows
+% us to cut data outside the ROI.
+super_data=sortrows(super_data,1);
+
+% min_x and max_x define, respectively, the minimum and maximum values of
+% the x coordinate that defines the ROI. The find command determines the
+% indices corresponding to the desired coordinates, and the following
+% assignment command of super_data selects the desired window in the x
+% direction.
+index_min_x=find(super_data(:,1)==min_x);
+index_max_x=find(super_data(:,1)==max_x);
+super_data = super_data(index_min_x(end):index_max_x(1),:);
+
+% The same processess that is used to select the x coordinates of the ROI
+% is used for the y coordinates.
+super_data=sortrows(super_data,2);
+index_min_y=find(super_data(:,2)==min_y);
+index_max_y=find(super_data(:,2)==max_y);
+super_data = super_data(index_min_y(end):index_max_y(1),:);
 
 image=zeros(max_x,max_y);
 
