@@ -87,7 +87,7 @@ for c=min_y:max_y
     end
     image(a,c)=counter;
     
-    keepingtrack=keepingtrack-1
+    keepingtrack=keepingtrack-1;
 end    
 end
 
