@@ -95,9 +95,6 @@ end
 image(1:(min_x-1),:)=[];
 image(:,1:(min_y-1))=[];
 
-
-
-
 maximagevalue=max(max(image(:,:,1)));
 minimagevalue=min(min(image(:,:,1)));
 
